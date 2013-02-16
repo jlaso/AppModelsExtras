@@ -33,30 +33,18 @@ First put a line in your bootstrap index.php that require "app/models/extras/aut
 For projects written in PHP >= 5.3, I have another repo.
 
 
-**For use in controller**
+**Basic use (only pagination) in controller**
 
 ```
-$app->map('/backend/entity/list(/:page)','backend_entity_list')
-    ->via('GET','POST')
+$app->get('/backend/entity/list(/:page)','backend_entity_list')
     ->name('backend_entity_list');
 function backend_entity_list($page = 1)
 {
     $app = Slim::getInstance();
 
-    if ($app->request()->isPost()) {
-        $search = $app->request()->post('search');
-        $qb     = new SearchQueryBuilder(null,$search);
-        $qb->buildQuery();
-        $query  = $qb->getQuery();
-        $params = $qb->getParams();
-    }else{
-        $search = null;
-        $query  = null;
-        $params = null;
-    }
     $paginator = new Paginable('Entity', array(
-        'query'     => $query,
-        'params'    => $params,
+        'query'     => null,
+        'params'    => null,
         'recPerPage'=>10
     ));
 
@@ -75,7 +63,7 @@ function backend_entity_list($page = 1)
 }
 ```
 
-**How in twig template**
+**And this in twig template**
 
 ```
 <div class="row-fluid">
@@ -88,3 +76,79 @@ function backend_entity_list($page = 1)
 </div>
 
 ```
+
+**Full use: Search and paginate**
+
+*Controller*
+
+´´´
+$app->map('/backend/entity/list(/:page)','backend_entity_list')
+    ->via('GET','POST')
+    ->name('.backend.entity.list');
+function backend_entity_list($page = 1)
+{
+    $app = Slim::getInstance();
+    redirectIfNotLogged($app);
+
+    if ($app->request()->isPost()) {
+        $search = $app->request()->post('text_description');
+        $qb     = new SearchQueryBuilder(array(
+            array(
+                'field'     => array('text','description'),
+                'type'      => 'text',
+                'widget'    => array('op' => 'like'),
+            ),
+        ), array(
+            'text_description'    => $search,
+        ));
+        $qb->buildQuery();
+        $query  = $qb->getQuery();
+        $params = $qb->getParams();
+    }else{
+        $search = null;
+        $query  = null;
+        $params = null;
+    }
+
+    $paginator = new Paginable('Entity', array(
+        'query'     => $query,
+        'params'    => $params,
+        'recPerPage'=> 10
+    ));
+
+    $paginator->setBaseRouteAndParams('.backend.entity.list');
+    if (($page > 1) && ($page > $paginator->getPages())) {
+        $app->notFound();
+    }
+
+    $paginator->setCurrentPage($page);
+
+    $items = $paginator->getResults();
+    $app->render('backend/entity/list.html.twig',array(
+        'items'         => $items,
+        'paginator'     => $paginator,
+        'search'        => $search,
+    ));
+}
+
+´´´
+
+*Twig*
+
+´´´
+<div class="row-fluid">
+    <div class="span4">
+        <form action="#" id="form-search" method="post">
+            <legend class="span4">Entity</legend>
+            <input type="search" class="span6" name="text_description"
+                   placeholder="Search..." value="{{ search }}">
+            <input type="submit" class="btn btn-primary pull-right" value="?" />
+        </form>
+    </div>
+    {% if paginator.needPagination %}
+        {{ paginator_backend_render(paginator) }}
+    {% endif %}
+</div>
+´´´
+
+
