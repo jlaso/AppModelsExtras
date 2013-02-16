@@ -32,7 +32,7 @@ class PaginationRender implements PaginationRenderInterface
             'next_disabled_href' => '',
             'dots_message' => '&hellip;',
             'dots_href' => '',
-            'css_container_class' => 'pagination spain8 pagination-right',
+            'css_container_class' => 'pagination span8 pagination-right',
             'css_prev_class' => 'prev',
             'css_next_class' => 'next',
             'css_disabled_class' => 'disabled',
