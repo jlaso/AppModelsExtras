@@ -135,7 +135,7 @@ function backend_entity_list($page = 1)
 
 *Twig*
 
-``
+```
 <div class="row-fluid">
     <div class="span4">
         <form action="#" id="form-search" method="post">
