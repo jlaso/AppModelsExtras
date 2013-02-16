@@ -81,7 +81,7 @@ function backend_entity_list($page = 1)
 
 *Controller*
 
-´´´
+```
 $app->map('/backend/entity/list(/:page)','backend_entity_list')
     ->via('GET','POST')
     ->name('.backend.entity.list');
@@ -131,11 +131,11 @@ function backend_entity_list($page = 1)
     ));
 }
 
-´´´
+```
 
 *Twig*
 
-´´´
+``
 <div class="row-fluid">
     <div class="span4">
         <form action="#" id="form-search" method="post">
@@ -149,6 +149,6 @@ function backend_entity_list($page = 1)
         {{ paginator_backend_render(paginator) }}
     {% endif %}
 </div>
-´´´
+```
 
 
