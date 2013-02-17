@@ -32,6 +32,8 @@ class Paginable implements PaginableInterface
 
     private $params;
 
+    private $order;
+
     private $page;
 
     private $pages;
@@ -50,17 +52,19 @@ class Paginable implements PaginableInterface
      * @param ORMWrapper $ormWrapper
      * @param int $recPerPage
      */
-    public function __construct($entity, $_options = array())
+    public function __construct($entity, $options = array())
     {
 
         $options = array_merge(array(
             'query'     => null,
             'params'    => null,
             'recPerPage'=> 10,
-        ),$_options);
+            'order'     => null,
+        ),$options);
         $this->entity     = $entity;
         $this->query      = $options['query'];
         $this->params     = $options['params'];
+        $this->order      = $options['order'] ?: 'id:asc';
 
         if ($this->query && $this->params) {
             $this->nbRecords  = BaseModel::factory($entity)
@@ -83,6 +87,10 @@ class Paginable implements PaginableInterface
     {
         if ($this->page>0) {
 
+            $order         = explode(':', $this->order);
+            $orderSentence = 'order_by_' . $order[1];
+            $orderField    = $order[0];
+
             $start  = ($this->page-1) * $this->recPerPage;
 
             if (($start >= 0) && ($this->recPerPage > 0)){
@@ -91,6 +99,7 @@ class Paginable implements PaginableInterface
                     $result = BaseModel::factory($this->entity)
                         ->where_raw($this->query,$this->params)
                         ->offset($start)
+                        ->$orderSentence($orderField)
                         ->limit($this->recPerPage)
                         ->find_many();
                     $log = ORM::get_query_log();
@@ -99,6 +108,7 @@ class Paginable implements PaginableInterface
                 }else{
                     return BaseModel::factory($this->entity)
                         ->offset($start)
+                        ->$orderSentence($orderField)
                         ->limit($this->recPerPage)
                         ->find_many();
                 }
@@ -230,5 +240,17 @@ class Paginable implements PaginableInterface
         return $this->nbRecords;
 
     }
+
+    /**
+     * Get current page
+     *
+     * @return integer
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+
 
 }

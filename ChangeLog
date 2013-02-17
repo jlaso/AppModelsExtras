@@ -1,3 +1,48 @@
+commit 4d1c82a4f87d22b91d80359248d20a4e25ea4130
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sun Feb 17 07:02:02 2013 +0100
+
+    - Added sortable order to main query.
+
+commit 7e277f590df9d69d6786405c421f716ab23c00e0
+Merge: b28b683 b9f2ba8
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:53:01 2013 +0100
+
+    - Merge branch 'develop'
+
+commit b9f2ba86d7f04b93f1541b7c4acf099f74bf7cdd
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:52:55 2013 +0100
+
+    - Fixed marks in README
+
+commit b28b6833d855f8620dd00cc2bf9bab7dc621a54a
+Merge: 672fd5d f12fb58
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:51:59 2013 +0100
+
+    - Merge branch 'develop'
+
+commit f12fb58db0e9b476cea8440d7f20eac3afda3a9e
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:51:49 2013 +0100
+
+    - Fixed marks in README
+
+commit 672fd5da795bf9e36b20ed63d75bec64fbefd637
+Merge: f5863ea 483399d
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:48:48 2013 +0100
+
+    - Merge branch 'release/1.1'
+
+commit 483399d0993d17c7e0411b501677a02604e1722a
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:48:32 2013 +0100
+
+    - Change to version 1.1.
+
 commit f5863ea10bbb823e0edb49fe74f3cc4789e89b39
 Author: joseluis laso <wld1373@gmail.com>
 Date:   Sat Feb 16 09:47:23 2013 +0100

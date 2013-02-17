@@ -1,5 +1,12 @@
-joseluis laso (3):
+joseluis laso (10):
       - Initial commit
       - Repair css class for paginator.
       - Added full use (search and pagination) in README
+      - Change to version 1.1.
+      - Merge branch 'release/1.1'
+      - Fixed marks in README
+      - Merge branch 'develop'
+      - Fixed marks in README
+      - Merge branch 'develop'
+      - Added sortable order to main query.
 
