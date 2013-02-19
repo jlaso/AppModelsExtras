@@ -64,7 +64,7 @@ class Paginable implements PaginableInterface
         $this->entity     = $entity;
         $this->query      = $options['query'];
         $this->params     = $options['params'];
-        $this->order      = $options['order'] ?: 'id:asc';
+        $this->order      = isset($options['order']) ? $options['order'] : 'id:asc';
 
         if ($this->query && $this->params) {
             $this->nbRecords  = BaseModel::factory($entity)
