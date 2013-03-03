@@ -26,22 +26,67 @@
 class Paginable implements PaginableInterface
 {
 
+    /**
+     * The entity we are paginating
+     *
+     * @var string $entity
+     */
     private $entity;
 
+    /**
+     * Query that must apply to table for paginate
+     *
+     * @var string $query
+     */
     private $query;
 
+    /**
+     * Params of query
+     *
+     * @var string $params
+     */
     private $params;
 
+    /**
+     * Current page
+     *
+     * @var int $page
+     */
     private $page;
 
+    /**
+     * Total pages
+     *
+     * @var int $pages
+     */
     private $pages;
 
+    /**
+     * Total number of records applying query
+     *
+     * @var int $nbRecords
+     */
     private $nbRecords;
 
+    /**
+     * Number of records have each page
+     *
+     * @var int $recPerPage
+     */
     private $recPerPage;
 
+    /**
+     * Slim logic route that return to list, must have :page param
+     *
+     * @var string $route
+     */
     private $route;
 
+    /**
+     * Slim route params (fixed, page not)
+     *
+     * @var mixed $routeParams
+     */
     private $routeParams;
 
     /**
@@ -71,7 +116,6 @@ class Paginable implements PaginableInterface
         }
 
         $this->setNumRecPerPage($options['recPerPage']);
-
     }
 
     /**
@@ -102,10 +146,8 @@ class Paginable implements PaginableInterface
                         ->limit($this->recPerPage)
                         ->find_many();
                 }
-
             }
         }
-
     }
 
     /**
@@ -115,10 +157,8 @@ class Paginable implements PaginableInterface
      */
     public function setNumRecPerPage($num)
     {
-
         $this->recPerPage = $num;
         $this->pages      = intval(ceil($this->nbRecords / $this->recPerPage));
-
     }
 
     /**
@@ -128,15 +168,38 @@ class Paginable implements PaginableInterface
      */
     public function setCurrentPage($page)
     {
-        $page = intval($page);
-        if (!is_int($page)) {
-            throw new Exception('El número de página indicado no es correcto');
-        }
+        if ('last'==$page) {
+            $db      = ORM::get_db();
+            $last    = $db->query(sprintf("SELECT COUNT(*) FROM `%s`", strtolower($this->entity)))->fetch();
+            $last    = $last[0];
+            $page    = ceil($last / $this->recPerPage);
 
-        if ($page < 1) {
-            throw new Exception('El número de página indicado no es correcto');
-        }
+        }else{
+            if (preg_match('/id-(\d+)/i', $page, $matches)) {
+                //@TODO: optimize this section
+                $id      = $matches[1];
+                $db      = ORM::get_db();
+                $records = $db->query(sprintf("SELECT `id` FROM `%s`", strtolower($this->entity)))->fetchAll();
+                $page    = 1;
+                for ($index=0,$len=count($records); $index<$len; $index++) {
+                    if ($records[$index]['id'] == $id) {
+                        break;
+                    }
+                    if ($index % $this->recPerPage === 0) {
+                        $page++;
+                    }
+                }
+            }else{
+                $page = intval($page);
+                if (!is_int($page)) {
+                    throw new Exception('El número de página indicado no es correcto');
+                }
 
+                if ($page < 1) {
+                    throw new Exception('El número de página indicado no es correcto');
+                }
+            }
+        }
         $this->page = $page;
 
     }
@@ -181,26 +244,41 @@ class Paginable implements PaginableInterface
      */
     public function getRouteForPage($num)
     {
-
         /** @var $app Slim */
         $app = Slim::getInstance();
 
         $params = array_merge(array('page'=>intval($num)),$this->routeParams);
         return $app->urlFor($this->route, $params);
-
     }
 
+    /**
+     * Indicates if table with current query has more than one page
+     *
+     * @return bool
+     */
     public function needPagination()
     {
         return $this->nbRecords > $this->recPerPage;
     }
 
 
+    /**
+     * Indicates if we are not in a first page
+     *
+     * @return bool
+     */
     public function hasPreviousPage()
     {
         return $this->page > 1;
     }
 
+    /**
+     * Get number of previous page
+     *
+     * @return int
+     *
+     * @throws LogicException
+     */
     public function getPreviousPage()
     {
         if (!$this->hasPreviousPage()) {
@@ -210,11 +288,23 @@ class Paginable implements PaginableInterface
         return $this->page - 1;
     }
 
+    /**
+     * Indicates if we are not in the last page
+     *
+     * @return bool
+     */
     public function hasNextPage()
     {
         return $this->page < $this->pages;
     }
 
+    /**
+     * Get the next page
+     *
+     * @return int
+     *
+     * @throws LogicException
+     */
     public function getNextPage()
     {
         if (!$this->hasNextPage()) {
@@ -224,11 +314,14 @@ class Paginable implements PaginableInterface
         return $this->page + 1;
     }
 
+    /**
+     * Get Number of Records (applying query)
+     *
+     * @return int
+     */
     public function getNbRecords()
     {
-
         return $this->nbRecords;
-
     }
 
 }
