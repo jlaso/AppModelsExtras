@@ -1,3 +1,41 @@
+commit d6ea1ba3b06238beaf4c28bc49e9d0a3c45e4797
+Merge: b9f2ba8 042eba0
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sun Mar 3 08:29:32 2013 +0100
+
+    - Merge branch 'feature/paginable-last' into develop
+
+commit 042eba04df8ece66731a351de8c9fc28f47c0177
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sun Mar 3 08:29:24 2013 +0100
+
+    - Permits to access last page
+
+commit b9f2ba86d7f04b93f1541b7c4acf099f74bf7cdd
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:52:55 2013 +0100
+
+    - Fixed marks in README
+
+commit f12fb58db0e9b476cea8440d7f20eac3afda3a9e
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:51:49 2013 +0100
+
+    - Fixed marks in README
+
+commit 672fd5da795bf9e36b20ed63d75bec64fbefd637
+Merge: f5863ea 483399d
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:48:48 2013 +0100
+
+    - Merge branch 'release/1.1'
+
+commit 483399d0993d17c7e0411b501677a02604e1722a
+Author: joseluis laso <wld1373@gmail.com>
+Date:   Sat Feb 16 09:48:32 2013 +0100
+
+    - Change to version 1.1.
+
 commit f5863ea10bbb823e0edb49fe74f3cc4789e89b39
 Author: joseluis laso <wld1373@gmail.com>
 Date:   Sat Feb 16 09:47:23 2013 +0100
