@@ -47,16 +47,18 @@ class Paginable implements PaginableInterface
      */
     private $params;
 
-<<<<<<< HEAD
+    /**
+     * Order
+     *
+     * @var string $order
+     */
+    private $order;
+
     /**
      * Current page
      *
      * @var int $page
      */
-=======
-    private $order;
-
->>>>>>> 4ffcf2d33c5846575ac2c608c201f8cdf31300de
     private $page;
 
     /**
@@ -97,8 +99,11 @@ class Paginable implements PaginableInterface
     /**
      * Generates a paginator from the ORMWrapper specified with ten records per page as default
      *
-     * @param ORMWrapper $ormWrapper
-     * @param int $recPerPage
+     * @param       $entity
+     * @param array $options
+     *
+     * @internal param \ORMWrapper $ormWrapper
+     * @internal param int $recPerPage
      */
     public function __construct($entity, $options = array())
     {
@@ -178,6 +183,8 @@ class Paginable implements PaginableInterface
      * sets the current page
      *
      * @param $page
+     *
+     * @throws Exception
      */
     public function setCurrentPage($page)
     {
