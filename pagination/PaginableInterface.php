@@ -2,7 +2,7 @@
 
 /**
  *
- * @author Joseluis Laso <info@joseluislaso.es>
+ * @author Joseluis Laso <jlaso@joseluislaso.es>
  *
  *
  * Pagination system for my Slim projects in PHP 5.2.x
@@ -81,5 +81,5 @@ interface PaginableInterface
 
     public function getNextPage();
 
-
 }
+
