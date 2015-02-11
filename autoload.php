@@ -1,9 +1,8 @@
 <?php
 
-
 /**
  *
- * @author Joseluis Laso <info@joseluislaso.es>
+ * @author Joseluis Laso <jlaso@joseluislaso.es>
  *
  *
  * Pagination and search system for my Slim projects in PHP 5.2.x
@@ -20,3 +19,4 @@ require_once $__dir__ . '/pagination/PaginatorViewExtension.php';
 
 require_once $__dir__ . '/search/SearchQueryBuilderInterface.php';
 require_once $__dir__ . '/search/SearchQueryBuilder.php';
+
