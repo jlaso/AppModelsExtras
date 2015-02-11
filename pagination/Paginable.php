@@ -154,8 +154,7 @@ class Paginable implements PaginableInterface
                         ->$orderSentence($orderField)
                         ->limit($this->recPerPage)
                         ->find_many();
-                    $log = ORM::get_query_log();
-                    $qry = ORM::get_last_query();
+                        
                     return $result;
                 }else{
                     return BaseModel::factory($this->entity)
@@ -354,6 +353,5 @@ class Paginable implements PaginableInterface
         return $this->page;
     }
 
-
-
 }
+
