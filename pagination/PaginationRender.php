@@ -2,7 +2,7 @@
 
 /**
  *
- * @author Joseluis Laso <info@joseluislaso.es>
+ * @author Joseluis Laso <jlaso@joseluislaso.es>
  *
  *
  * Pagination system for my Slim projects in PHP 5.2.x
@@ -121,5 +121,5 @@ class PaginationRender implements PaginationRenderInterface
         return sprintf('<div class="%s"><ul>%s</ul></div>',$this->options['css_container_class'],implode('', $pages));
     }
 
-
 }
+
