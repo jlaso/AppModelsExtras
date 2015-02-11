@@ -1,6 +1,8 @@
 **AppModelsExtras for my projects based on IdiORM and Slim for PHP < 5.3**
 
-Joseluis Laso <info@joseluislaso.es>
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/0797a556-3b58-4057-a661-5d4e9d132dbf/big.png)](https://insight.sensiolabs.com/projects/0797a556-3b58-4057-a661-5d4e9d132dbf)
+
+Joseluis Laso <jlaso@joseluislaso.es>
 
 Clone project
 ```
