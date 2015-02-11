@@ -2,7 +2,7 @@
 
 /**
  *
- * @author Joseluis Laso <info@joseluislaso.es>
+ * @author Joseluis Laso <jlaso@joseluislaso.es>
  *
  *
  * Search system for my Slim projects in PHP 5.2.x
@@ -86,3 +86,4 @@ class SearchQueryBuilder implements SearchQueryBuilderInterface
     }
 
 }
+
