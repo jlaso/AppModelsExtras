@@ -2,7 +2,7 @@
 
 /**
  *
- * @author Joseluis Laso <info@joseluislaso.es>
+ * @author Joseluis Laso <jlaso@joseluislaso.es>
  *
  *
  * Pagination system for my Slim projects in PHP 5.2.x
@@ -195,7 +195,6 @@ class Paginable implements PaginableInterface
 
         }else{
             if (preg_match('/id-(\d+)/i', $page, $matches)) {
-                //@TODO: optimize this section
                 $id      = $matches[1];
                 $db      = ORM::get_db();
                 $records = $db->query(sprintf("SELECT `id` FROM `%s`", strtolower($this->entity)))->fetchAll();
